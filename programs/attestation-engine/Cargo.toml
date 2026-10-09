@@ -17,3 +17,8 @@ idl-build = ["anchor-lang/idl-build"]
 
 [dependencies]
 anchor-lang = "1.2.0"
+
+[lints.rust]
+# Anchor/Solana procedural macros emit these cfg values; register them with rustc
+# instead of disabling lint checks or dropping -D warnings from CI.
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(feature, values("custom-heap", "custom-panic", "anchor-debug"))', 'cfg(target_os, values("solana"))'] }
