@@ -37,5 +37,10 @@ jobs:
       - name: Clippy
         run: cargo clippy --workspace --all-targets -- -D warnings
 
+      - name: Create ephemeral CI wallet
+        run: |
+          mkdir -p "$HOME/.config/solana"
+          solana-keygen new --no-bip39-passphrase --silent --force -o "$HOME/.config/solana/id.json"
+
       - name: Run 16 tests on local validator
         run: anchor test --validator legacy
